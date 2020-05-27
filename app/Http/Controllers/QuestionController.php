@@ -81,7 +81,15 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+
+        return \response()->json(
+          [
+              'message' => "Resource Updated Successfully",
+              'code' => 202
+          ],
+            Response::HTTP_ACCEPTED
+        );
     }
 
     /**
