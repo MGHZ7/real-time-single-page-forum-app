@@ -2,10 +2,15 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    protected $fillable = [
+        'id'
+    ];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
