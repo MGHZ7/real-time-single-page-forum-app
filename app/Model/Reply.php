@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     protected $fillable = [
-        'id'
+        'body',
+        'user_id',
+        'question_id'
     ];
 
     public function question()
