@@ -3,83 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Model\Like;
+use App\Model\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function likeIt(Reply $reply)
     {
-        //
+        //Try store object using HasMany object
+       /* $reply->likes()->create([
+            'user_id' => 1
+        ]);*/
+
+       Like::create([
+           'user_id' => 1,
+           'reply_id' => $reply->id
+        ]);
+
+       return response()->json(
+           [
+               'message' => 'Like Is Stored Successfully',
+               'code' => Response::HTTP_CREATED
+           ],
+           Response::HTTP_CREATED
+       );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function unLikeIt(Reply $reply)
     {
-        //
-    }
+//        $reply->likes()->where(['user_id', auth()->user()->id])->first()->delete();
+        $reply->likes()->where('user_id', 1)->first()->delete();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Like $like)
-    {
-        //
+        return response()->json(
+            [
+                'message' => 'Reply is unliked',
+                'code' => Response::HTTP_ACCEPTED
+            ],
+            Response::HTTP_ACCEPTED
+        );
     }
 }
