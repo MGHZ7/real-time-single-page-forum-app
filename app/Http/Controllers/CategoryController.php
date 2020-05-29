@@ -10,6 +10,11 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['login', 'signup']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +39,7 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {

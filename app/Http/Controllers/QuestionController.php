@@ -15,6 +15,12 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index', 'show']]);
+    }
+
     public function index()
     {
         return QuestionResource::collection(Question::latest()->get());
@@ -34,7 +40,7 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -77,7 +83,7 @@ class QuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Model\Question  $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Question $question)
     {

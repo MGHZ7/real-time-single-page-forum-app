@@ -9,6 +9,11 @@ use Illuminate\Http\Response;
 
 class LikeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('JWT');
+    }
+
     public function likeIt(Reply $reply)
     {
         //Try store object using HasMany object
